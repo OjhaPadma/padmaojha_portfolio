@@ -1,11 +1,11 @@
 {
-    "name": "padmaojha_portfolio",
-    "short_name": "padmaojha_portfolio",
+    "name": "Padma Ojha",
+    "short_name": "Padma Ojha",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "Portfolio app",
+    "background_color": "#F8FAFC",
+    "theme_color": "#0F766E",
+    "description": "Portfolio of Padma Ojha, Senior Flutter Developer.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

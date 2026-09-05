@@ -1,30 +1,71 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:padmaojha_portfolio/main.dart';
+import 'package:padmaojha_portfolio/data/models/project.dart';
+import 'package:padmaojha_portfolio/sections/projects_section.dart';
+import 'package:padmaojha_portfolio/widgets/common/app_nav_bar.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('nav bar shows section links', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 800));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final about = GlobalKey();
+    final skills = GlobalKey();
+    final projects = GlobalKey();
+    final experience = GlobalKey();
+    final contact = GlobalKey();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: AppNavBar(
+            items: [
+              NavItem(label: 'About', keyRef: about),
+              NavItem(label: 'Skills', keyRef: skills),
+              NavItem(label: 'Projects', keyRef: projects),
+              NavItem(label: 'Experience', keyRef: experience),
+              NavItem(label: 'Contact', keyRef: contact),
+            ],
+            menuOpen: false,
+            onMenuToggle: () {},
+            onItemSelected: (_) {},
+          ),
+        ),
+      ),
+    );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('About'), findsOneWidget);
+    expect(find.text('Skills'), findsOneWidget);
+    expect(find.text('Projects'), findsOneWidget);
+    expect(find.text('Experience'), findsOneWidget);
+    expect(find.text('Contact'), findsOneWidget);
+    expect(find.text('Padma Ojha'), findsOneWidget);
+  });
+
+  testWidgets('project card opens details dialog', (tester) async {
+    const project = Project(
+      name: 'Test App',
+      tagline: 'A sample tagline',
+      platformLabel: 'Flutter',
+      description: 'Detailed description',
+      tech: ['Dart', 'Flutter'],
+    );
+
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: SingleChildScrollView(child: ProjectCard(project: project)),
+        ),
+      ),
+    );
+
+    expect(find.text('Test App'), findsOneWidget);
+    expect(find.text('A sample tagline'), findsOneWidget);
+
+    await tester.tap(find.text('View details'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Detailed description'), findsOneWidget);
+    expect(find.text('Close'), findsOneWidget);
   });
 }

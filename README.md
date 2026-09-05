@@ -1,17 +1,20 @@
 # padmaojha_portfolio
 
-Portfolio app
+Personal portfolio site for **Padma Ojha**, Senior Flutter Developer. Single-page Flutter Web app.
 
-## Getting Started
+## Run locally
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run -d chrome
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Production build
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+flutter build web --release --base-href /padmaojha_portfolio/
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The web output is `build/web`. Host it on GitHub Pages (this repo’s default), Firebase Hosting, Netlify, or Vercel.
+
+Resume PDF is served from `web/resume/Padma_Ojha.pdf`. Site copy lives in `lib/data/portfolio_content.dart`.
